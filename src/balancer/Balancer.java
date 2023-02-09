@@ -27,33 +27,40 @@ public class Balancer {
         File file = new File(args[0]);
         FileReader fileReader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
+        
+        Encloser currentEncloser;
+        Encloser openerEncloser;
 
         char opener = (char) 0;
 
         MyStack stack = new MyStack();
 
         int c = 0;
+        int line = 1;
 
         while ((c = bufferedReader.read()) != -1) {
 
             char character = (char) c;
+            if(c=='\n') line++;
+            
+            currentEncloser = new Encloser(character, line);
             // if opener push to stack
-            if (isOpener(character)) {
-                stack.push(character);
-                System.out.println("Pushing " + character);
+            if (isOpener(currentEncloser.getCh())) {
+                stack.push(currentEncloser);
+                System.out.println("Pushing " + currentEncloser.getCh());
             }
 
             // if opener pop from stack and attempt to match
             // if not a match not balance stop here
-            if (isCloser(character)) {
+            if (isCloser(currentEncloser.getCh())) {
                 if (!stack.isEmpty()) {
-                    opener =  (char) stack.pop();
+                    openerEncloser =  (Encloser) stack.pop();
 
-                    System.out.println("Popping " + character);
+                    System.out.println("Popping " + openerEncloser.getCh());
 
-                    char closer = getCloser(opener);
-                    System.out.println(closer);
-                    if(character == closer) {
+                    
+                   
+                    if(openerEncloser.equals(currentEncloser)) {
                         continue;
                     } else {
                         System.out.println("Not the correct opener for closer");

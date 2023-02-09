@@ -29,19 +29,11 @@ public class Encloser {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        final Encloser other = (Encloser) obj;
-        if (this.ch != other.ch) {
-            return false;
-        }
-        return true;
+        Encloser that = (Encloser) obj;
+        if(this.ch == '(' && that.ch == ')') return true;
+        if(this.ch == '[' && that.ch == ']') return true;
+        if(this.ch == '{' && that.ch == '}') return true;
+        
+        return false;
     }   
 }
