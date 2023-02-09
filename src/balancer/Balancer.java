@@ -55,15 +55,17 @@ public class Balancer {
             if (isCloser(currentEncloser.getCh())) {
                 if (!stack.isEmpty()) {
                     openerEncloser =  (Encloser) stack.pop();
-
+                    System.out.println ("Current character " + currentEncloser.getCh());
                     System.out.println("Popping " + openerEncloser.getCh());
-
                     
-                   
                     if(openerEncloser.equals(currentEncloser)) {
                         continue;
                     } else {
-                        System.out.println("Not the correct opener for closer");
+                        System.out.println(openerEncloser.getCh() + 
+                                " on line " + openerEncloser.getLineNumber() + 
+                                " does not match " + currentEncloser.getCh() + 
+                                " on line " + currentEncloser.getLineNumber());
+      
                         System.exit(0);
                     }
                 } else {
