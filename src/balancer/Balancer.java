@@ -28,7 +28,7 @@ public class Balancer {
         FileReader fileReader = new FileReader(file);
         BufferedReader bufferedReader = new BufferedReader(fileReader);
 
-        char opener = (char) -1;
+        char opener = (char) 0;
 
         MyStack stack = new MyStack();
 
@@ -47,16 +47,17 @@ public class Balancer {
             // if not a match not balance stop here
             if (isCloser(character)) {
                 if (!stack.isEmpty()) {
-                    opener = (char) stack.pop();
+                    opener =  (char) stack.pop();
 
                     System.out.println("Popping " + character);
 
                     char closer = getCloser(opener);
-
-                    if (isCloser(closer)) {
+                    System.out.println(closer);
+                    if(character == closer) {
                         continue;
                     } else {
-                        System.out.println("Notty matchy");
+                        System.out.println("Not the correct opener for closer");
+                        System.exit(0);
                     }
                 } else {
                     System.out.println("Not match - Empty stack on closer");
